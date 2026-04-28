@@ -1,0 +1,55 @@
+﻿@page
+@model CreateModel
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Ajouter un patient</h1>
+        <p class="page-subtitle">Création d’un dossier patient</p>
+    </div>
+</div>
+
+<div class="card form-card">
+    <div class="card-body">
+        <form method="post">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Prénom</label>
+                    <input class="form-control" name="Patient.FirstName" value="@Model.Patient.FirstName" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Nom</label>
+                    <input class="form-control" name="Patient.LastName" value="@Model.Patient.LastName" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Date de naissance</label>
+                    <input class="form-control" type="date" name="Patient.DateOfBirth" value="@Model.Patient.DateOfBirth.ToString("yyyy-MM-dd")" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Genre</label>
+                    <select class="form-select" name="Patient.Gender">
+                        <option value="M">M</option>
+                        <option value="F">F</option>
+                    </select>
+                </div>
+
+                <div class="col-md-8">
+                    <label class="form-label">Adresse</label>
+                    <input class="form-control" name="Patient.Address" value="@Model.Patient.Address" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Téléphone</label>
+                    <input class="form-control" name="Patient.Phone" value="@Model.Patient.Phone" />
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button class="btn btn-primary" type="submit">Ajouter</button>
+                <a class="btn btn-outline-secondary" href="/">Retour</a>
+            </div>
+        </form>
+    </div>
+</div>

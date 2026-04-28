@@ -1,10 +1,73 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Patients</h1>
+        <p class="page-subtitle">Gestion des informations personnelles des patients</p>
+    </div>
+
+    <a class="btn btn-primary" href="/Create">Ajouter un patient</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        @if (!Model.Patients.Any())
+        {
+            <div class="empty-state">
+                Aucun patient enregistré.
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Date de naissance</th>
+                            <th>Genre</th>
+                            <th>Adresse</th>
+                            <th>Téléphone</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var patient in Model.Patients)
+                        {
+                            <tr>
+                                <td class="fw-semibold">@patient.FirstName</td>
+                                <td>@patient.LastName</td>
+                                <td>@patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                                <td>
+                                    <span class="badge-gender">@patient.Gender</span>
+                                </td>
+                                <td>@patient.Address</td>
+                                <td>@patient.Phone</td>
+
+
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <a class="btn btn-sm btn-outline-primary" href="/Edit/@patient.Id">Modifier</a>
+
+                                        <form method="post" asp-page-handler="Delete" asp-route-id="@patient.Id"
+                                              onsubmit="return confirm('Supprimer ce patient ?');">
+                                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                Supprimer
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
 </div>

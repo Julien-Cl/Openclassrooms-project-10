@@ -1,15 +1,16 @@
-namespace MicroserviceRouter
-{
-  public class Program
-  {
-    public static void Main(string[] args)
-    {
-      var builder = WebApplication.CreateBuilder(args);
-      var app = builder.Build();
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
-      app.MapGet("/", () => "Hello World!");
+var builder = WebApplication.CreateBuilder(args);
 
-      app.Run();
-    }
-  }
-}
+builder.Configuration.AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
+
+builder.Services.AddOcelot();
+
+builder.Services.AddHttpClient();
+
+var app = builder.Build();
+
+await app.UseOcelot();
+
+app.Run(); 
