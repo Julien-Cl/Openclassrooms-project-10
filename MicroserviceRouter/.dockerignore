@@ -1,3 +1,6 @@
-﻿Dockerfile
-bin/
+﻿bin/
 obj/
+.vs/
+.git/
+*.user
+*.suo

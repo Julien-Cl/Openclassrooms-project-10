@@ -23,6 +23,30 @@
             ],
             "UpstreamPathTemplate": "/patients/{id}",
             "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+        },
+        {
+            "DownstreamPathTemplate": "/notes",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "note-backend",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/notes",
+            "UpstreamHttpMethod": [ "Get", "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/notes/patient/{patientId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "note-backend",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/notes/patient/{patientId}",
+            "UpstreamHttpMethod": [ "Get" ]
         }
     ],
     "GlobalConfiguration": {

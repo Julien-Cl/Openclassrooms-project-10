@@ -1,0 +1,77 @@
+﻿@page "{id:int}"
+@model DetailsModel
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">@Model.Patient.FirstName @Model.Patient.LastName</h1>
+        <p class="page-subtitle">Informations patient et notes médicales</p>
+    </div>
+
+    <a class="btn btn-outline-secondary" href="/">Retour</a>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Informations personnelles</h2>
+
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Prénom</dt>
+            <dd class="col-sm-9">@Model.Patient.FirstName</dd>
+
+            <dt class="col-sm-3">Nom</dt>
+            <dd class="col-sm-9">@Model.Patient.LastName</dd>
+
+            <dt class="col-sm-3">Date de naissance</dt>
+            <dd class="col-sm-9">@Model.Patient.DateOfBirth.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-3">Genre</dt>
+            <dd class="col-sm-9">@Model.Patient.Gender</dd>
+
+            <dt class="col-sm-3">Adresse</dt>
+            <dd class="col-sm-9">@Model.Patient.Address</dd>
+
+            <dt class="col-sm-3">Téléphone</dt>
+            <dd class="col-sm-9">@Model.Patient.Phone</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Ajouter une note</h2>
+
+        <form method="post" asp-page-handler="AddNote" asp-route-id="@Model.Patient.Id">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <textarea class="form-control" name="NewNoteContent" rows="5">@Model.NewNoteContent</textarea>
+
+            <div class="mt-3">
+                <button class="btn btn-primary" type="submit">Ajouter la note</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Notes existantes</h2>
+
+        @if (!Model.Notes.Any())
+        {
+            <p class="text-muted mb-0">Aucune note pour ce patient.</p>
+        }
+        else
+        {
+            @foreach (var note in Model.Notes)
+            {
+                <div class="border rounded p-3 mb-3">
+                    <div class="text-muted small mb-2">
+                        @note.CreatedAt.ToString("dd/MM/yyyy HH:mm")
+                    </div>
+
+                    <div style="white-space: pre-wrap;">@note.Content</div>
+                </div>
+            }
+        }
+    </div>
+</div>

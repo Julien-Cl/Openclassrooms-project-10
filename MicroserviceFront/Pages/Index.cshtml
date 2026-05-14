@@ -46,9 +46,10 @@
                                 <td>@patient.Address</td>
                                 <td>@patient.Phone</td>
 
-
                                 <td class="text-end">
                                     <div class="d-flex justify-content-end gap-2">
+                                        <a class="btn btn-sm btn-outline-secondary" href="/Details/@patient.Id">Voir</a>
+
                                         <a class="btn btn-sm btn-outline-primary" href="/Edit/@patient.Id">Modifier</a>
 
                                         <form method="post" asp-page-handler="Delete" asp-route-id="@patient.Id"
@@ -59,10 +60,6 @@
                                         </form>
                                     </div>
                                 </td>
-
-
-
-
                             </tr>
                         }
                     </tbody>
