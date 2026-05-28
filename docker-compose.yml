@@ -1,0 +1,99 @@
+services:
+  patient-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: patient-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "PatientDb!2026"
+    ports:
+      - "1433:1433"
+    volumes:
+      - patient-db-data:/var/opt/mssql
+    networks:
+      - medicalapp-network
+
+  note-db:
+    image: mongo
+    container_name: note-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - note-db-data:/data/db
+    networks:
+      - medicalapp-network
+
+  patient-backend:
+    build:
+      context: ./MicroserviceBackPatient
+      dockerfile: Dockerfile
+    image: patient-api
+    container_name: patient-backend
+    depends_on:
+      - patient-db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=patient-db,1433;Database=PatientDb;User Id=sa;Password=PatientDb!2026;TrustServerCertificate=True;Encrypt=False"
+      Jwt__Key: "MedicalApp_Sprint_Project_Secret_Key_Change_In_Production_2026"
+      Jwt__Issuer: "MedicalApp"
+      Jwt__Audience: "MedicalAppUsers"
+      AdminUser__Email: "admin@medicalapp.local"
+      AdminUser__Password: "Test123!"
+
+    ports:
+      - "7000:8080"
+    restart: on-failure
+    networks:
+      - medicalapp-network
+
+  note-backend:
+    build:
+      context: ./MicroserviceBackNote
+      dockerfile: Dockerfile
+    image: note-api
+    container_name: note-backend
+    depends_on:
+      - note-db
+    environment:
+      NoteDatabase__ConnectionString: "mongodb://note-db:27017"
+      Jwt__Key: "MedicalApp_Sprint_Project_Secret_Key_Change_In_Production_2026"
+      Jwt__Issuer: "MedicalApp"
+      Jwt__Audience: "MedicalAppUsers"
+    ports:
+      - "7003:8080"
+    restart: on-failure
+    networks:
+      - medicalapp-network
+
+  patient-router:
+    build:
+      context: ./MicroserviceRouter
+      dockerfile: Dockerfile
+    image: patient-router
+    container_name: patient-router
+    depends_on:
+      - patient-backend
+      - note-backend
+    ports:
+      - "7001:8080"
+    networks:
+      - medicalapp-network
+
+  patient-front:
+    build:
+      context: ./MicroserviceFront
+      dockerfile: Dockerfile
+    image: patient-front
+    container_name: patient-front
+    depends_on:
+      - patient-router
+    ports:
+      - "7002:8080"
+    networks:
+      - medicalapp-network
+
+volumes:
+  patient-db-data:
+  note-db-data:
+
+networks:
+  medicalapp-network:
+    name: medicalapp-network

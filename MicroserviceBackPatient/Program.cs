@@ -75,6 +75,34 @@ namespace MicroserviceBackPatient
         var context = scope.ServiceProvider.GetRequiredService<PatientDbContext>();
         context.Database.Migrate();
 
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+        var adminEmail = app.Configuration["AdminUser:Email"];
+        var adminPassword = app.Configuration["AdminUser:Password"];
+
+        if (!string.IsNullOrWhiteSpace(adminEmail) && !string.IsNullOrWhiteSpace(adminPassword))
+        {
+          var existingAdmin = userManager.FindByEmailAsync(adminEmail).GetAwaiter().GetResult();
+
+          if (existingAdmin == null)
+          {
+            var adminUser = new IdentityUser
+            {
+              UserName = adminEmail,
+              Email = adminEmail
+            };
+
+            var result = userManager.CreateAsync(adminUser, adminPassword).GetAwaiter().GetResult();
+
+            if (!result.Succeeded)
+            {
+              var errors = string.Join("; ", result.Errors.Select(e => e.Description));
+              throw new InvalidOperationException($"Admin user seed failed: {errors}");
+            }
+          }
+        }
+
+
         if (!context.Patients.Any(p => p.FirstName == "TestNone"))
         {
           context.Patients.AddRange(

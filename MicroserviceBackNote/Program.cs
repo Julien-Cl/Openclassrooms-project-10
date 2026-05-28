@@ -1,4 +1,4 @@
-using System.Text;
+ï»¿using System.Text;
 using MicroserviceBackNote.Data;
 using MicroserviceBackNote.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -78,63 +78,63 @@ namespace MicroserviceBackNote
             {
               PatientId = 1,
               PatientName = "TestNone",
-              Content = "Le patient déclare qu'il 'se sent très bien' Poids égal ou inférieur au poids recommandé",
+              Content = "Le patient dÃ©clare qu'il 'se sent trÃ¨s bien' Poids Ã©gal ou infÃ©rieur au poids recommandÃ©",
               CreatedAt = new DateTime(2026, 1, 1, 8, 0, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 2,
               PatientName = "TestBorderline",
-              Content = "Le patient déclare qu'il ressent beaucoup de stress au travail Il se plaint également que son audition est anormale dernièrement",
+              Content = "Le patient dÃ©clare qu'il ressent beaucoup de stress au travail Il se plaint Ã©galement que son audition est anormale derniÃ¨rement",
               CreatedAt = new DateTime(2026, 1, 1, 8, 10, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 2,
               PatientName = "TestBorderline",
-              Content = "Le patient déclare avoir fait une réaction aux médicaments au cours des 3 derniers mois Il remarque également que son audition continue d'être anormale",
+              Content = "Le patient dÃ©clare avoir fait une rÃ©action aux mÃ©dicaments au cours des 3 derniers mois Il remarque Ã©galement que son audition continue d'Ãªtre anormale",
               CreatedAt = new DateTime(2026, 1, 1, 8, 20, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 3,
               PatientName = "TestInDanger",
-              Content = "Le patient déclare qu'il fume depuis peu",
+              Content = "Le patient dÃ©clare qu'il fume depuis peu",
               CreatedAt = new DateTime(2026, 1, 1, 8, 30, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 3,
               PatientName = "TestInDanger",
-              Content = "Le patient déclare qu'il est fumeur et qu'il a cessé de fumer l'année dernière Il se plaint également de crises d’apnée respiratoire anormales Tests de laboratoire indiquant un taux de cholestérol LDL élevé",
+              Content = "Le patient dÃ©clare qu'il est fumeur et qu'il a cessÃ© de fumer l'annÃ©e derniÃ¨re Il se plaint Ã©galement de crises dâ€™apnÃ©e respiratoire anormales Tests de laboratoire indiquant un taux de cholestÃ©rol LDL Ã©levÃ©",
               CreatedAt = new DateTime(2026, 1, 1, 8, 40, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 4,
               PatientName = "TestEarlyOnset",
-              Content = "Le patient déclare qu'il lui est devenu difficile de monter les escaliers Il se plaint également d’être essoufflé Tests de laboratoire indiquant que les anticorps sont élevés Réaction aux médicaments",
+              Content = "Le patient dÃ©clare qu'il lui est devenu difficile de monter les escaliers Il se plaint Ã©galement dâ€™Ãªtre essoufflÃ© Tests de laboratoire indiquant que les anticorps sont Ã©levÃ©s RÃ©action aux mÃ©dicaments",
               CreatedAt = new DateTime(2026, 1, 1, 8, 50, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 4,
               PatientName = "TestEarlyOnset",
-              Content = "Le patient déclare qu'il a mal au dos lorsqu'il reste assis pendant longtemps",
+              Content = "Le patient dÃ©clare qu'il a mal au dos lorsqu'il reste assis pendant longtemps",
               CreatedAt = new DateTime(2026, 1, 1, 9, 0, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 4,
               PatientName = "TestEarlyOnset",
-              Content = "Le patient déclare avoir commencé à fumer depuis peu Hémoglobine A1C supérieure au niveau recommandé",
+              Content = "Le patient dÃ©clare avoir commencÃ© Ã  fumer depuis peu HÃ©moglobine A1C supÃ©rieure au niveau recommandÃ©",
               CreatedAt = new DateTime(2026, 1, 1, 9, 10, 0, DateTimeKind.Utc)
             },
             new Note
             {
               PatientId = 4,
               PatientName = "TestEarlyOnset",
-              Content = "Taille, Poids, Cholestérol, Vertige et Réaction",
+              Content = "Taille, Poids, CholestÃ©rol, Vertige et RÃ©action",
               CreatedAt = new DateTime(2026, 1, 1, 9, 20, 0, DateTimeKind.Utc)
             }
           });
