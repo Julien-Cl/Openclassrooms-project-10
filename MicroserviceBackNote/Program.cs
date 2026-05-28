@@ -1,6 +1,9 @@
+using System.Text;
 using MicroserviceBackNote.Data;
 using MicroserviceBackNote.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using MongoDB.Driver;
 
 namespace MicroserviceBackNote
@@ -16,6 +19,34 @@ namespace MicroserviceBackNote
 
       builder.Services.AddControllers();
 
+      var jwtKey = builder.Configuration["Jwt:Key"];
+      var jwtIssuer = builder.Configuration["Jwt:Issuer"];
+      var jwtAudience = builder.Configuration["Jwt:Audience"];
+
+      if (string.IsNullOrWhiteSpace(jwtKey))
+        throw new InvalidOperationException("Jwt:Key is missing.");
+
+      builder.Services.AddAuthentication(options =>
+      {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+      })
+      .AddJwtBearer(options =>
+      {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuer = true,
+          ValidateAudience = true,
+          ValidateLifetime = true,
+          ValidateIssuerSigningKey = true,
+          ValidIssuer = jwtIssuer,
+          ValidAudience = jwtAudience,
+          IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+        };
+      });
+
+      builder.Services.AddAuthorization();
+
       builder.Services.AddEndpointsApiExplorer();
       builder.Services.AddSwaggerGen();
 
@@ -24,6 +55,7 @@ namespace MicroserviceBackNote
       app.UseSwagger();
       app.UseSwaggerUI();
 
+      app.UseAuthentication();
       app.UseAuthorization();
 
       app.MapControllers();

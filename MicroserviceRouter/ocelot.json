@@ -25,6 +25,30 @@
             "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
         },
         {
+            "DownstreamPathTemplate": "/Auth/login",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "patient-backend",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/Auth/login",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
+            "DownstreamPathTemplate": "/Auth/register",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "patient-backend",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/Auth/register",
+            "UpstreamHttpMethod": [ "Post" ]
+        },
+        {
             "DownstreamPathTemplate": "/notes",
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [

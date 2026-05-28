@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MicroserviceFront.Models;
@@ -17,6 +18,9 @@ public class EditModel : PageModel
 
   public async Task<IActionResult> OnGet(int id)
   {
+    if (!SetAuthorizationHeader())
+      return RedirectToPage("/Login");
+
     var patient = await _http.GetFromJsonAsync<Patient>($"http://patient-router:8080/patients/{id}");
 
     if (patient == null)
@@ -29,6 +33,9 @@ public class EditModel : PageModel
 
   public async Task<IActionResult> OnPost(int id)
   {
+    if (!SetAuthorizationHeader())
+      return RedirectToPage("/Login");
+
     var response = await _http.PutAsJsonAsync($"http://patient-router:8080/patients/{id}", Patient);
 
     if (!response.IsSuccessStatusCode)
@@ -38,5 +45,17 @@ public class EditModel : PageModel
     }
 
     return RedirectToPage("/Index");
+  }
+
+  private bool SetAuthorizationHeader()
+  {
+    var token = HttpContext.Session.GetString("AccessToken");
+
+    if (string.IsNullOrWhiteSpace(token))
+      return false;
+
+    _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+    return true;
   }
 }

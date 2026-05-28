@@ -1,0 +1,29 @@
+﻿@page
+@model LoginModel
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">Connexion</h1>
+        <p class="page-subtitle">Authentification utilisateur</p>
+    </div>
+</div>
+
+<div class="card form-card">
+    <div class="card-body">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input class="form-control" name="Email" value="@Model.Email" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Mot de passe</label>
+                <input class="form-control" type="password" name="Password" />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Se connecter</button>
+        </form>
+    </div>
+</div>

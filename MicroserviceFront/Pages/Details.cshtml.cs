@@ -1,7 +1,8 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using MicroserviceFront.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net.Http.Json;
 
 public class DetailsModel : PageModel
 {
@@ -21,6 +22,9 @@ public class DetailsModel : PageModel
 
   public async Task<IActionResult> OnGet(int id)
   {
+    if (!SetAuthorizationHeader())
+      return RedirectToPage("/Login");
+
     var loaded = await LoadPatientAndNotes(id);
 
     if (!loaded)
@@ -31,6 +35,9 @@ public class DetailsModel : PageModel
 
   public async Task<IActionResult> OnPostAddNote(int id)
   {
+    if (!SetAuthorizationHeader())
+      return RedirectToPage("/Login");
+
     if (string.IsNullOrWhiteSpace(NewNoteContent))
     {
       ModelState.AddModelError(string.Empty, "La note ne peut pas être vide.");
@@ -70,6 +77,18 @@ public class DetailsModel : PageModel
     }
 
     return RedirectToPage("/Details", new { id });
+  }
+
+  private bool SetAuthorizationHeader()
+  {
+    var token = HttpContext.Session.GetString("AccessToken");
+
+    if (string.IsNullOrWhiteSpace(token))
+      return false;
+
+    _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+    return true;
   }
 
   private async Task<bool> LoadPatientAndNotes(int id)
