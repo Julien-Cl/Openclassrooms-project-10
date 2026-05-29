@@ -3,10 +3,10 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: patient-db
     environment:
-      ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "PatientDb!2026"
+      ACCEPT_EULA: "Y" # On accepte la licence SQL Server
+      MSSQL_SA_PASSWORD: "PatientDb!2026" # Mot de passe admin de SQL Server
     ports:
-      - "1433:1433"
+      - "1433:1433" # Port standard SQL Server
     volumes:
       - patient-db-data:/var/opt/mssql
     networks:

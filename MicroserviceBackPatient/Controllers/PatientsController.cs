@@ -89,7 +89,7 @@ public class PatientsController : ControllerBase
   private bool ValidatePatient(Patient patient)
   {
     if (patient.DateOfBirth.Date > DateTime.Today)
-      ModelState.AddModelError(nameof(patient.DateOfBirth), "Date of birth cannot be in the future.");
+      ModelState.AddModelError(nameof(patient.DateOfBirth), "Date of birth incorrect");
 
     return ModelState.IsValid;
   }
