@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MicroserviceBackPatient.Models;
 
 namespace MicroserviceBackPatient.Data;
 
-public class PatientDbContext : IdentityDbContext
+public class PatientDbContext : DbContext
 {
   public PatientDbContext(DbContextOptions<PatientDbContext> options)
       : base(options)

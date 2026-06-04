@@ -1,0 +1,6 @@
+@MicroserviceBackAssessment_HostAddress = http://localhost:5239
+
+GET {{MicroserviceBackAssessment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

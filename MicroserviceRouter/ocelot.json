@@ -29,7 +29,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "patient-backend",
+                    "Host": "auth-backend",
                     "Port": 8080
                 }
             ],
@@ -41,7 +41,7 @@
             "DownstreamScheme": "http",
             "DownstreamHostAndPorts": [
                 {
-                    "Host": "patient-backend",
+                    "Host": "auth-backend",
                     "Port": 8080
                 }
             ],

@@ -1,12 +1,12 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using MicroserviceBackPatient.Models.Auth;
+using MicroserviceBackAuth.Models.Auth;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace MicroserviceBackPatient.Controllers;
+namespace MicroserviceBackAuth.Controllers;
 
 [ApiController]
 [Route("[controller]")]

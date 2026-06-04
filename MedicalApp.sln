@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "�
 		docker-compose.yml = docker-compose.yml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroserviceBackAssessment", "MicroserviceBackAssessment\MicroserviceBackAssessment.csproj", "{C2EECC4B-9945-417E-BC36-DFCE62ED932F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroserviceBackAuth", "MicroserviceBackAuth\MicroserviceBackAuth.csproj", "{69EE73D0-BC42-4F4E-98BA-97FC5B1AAD55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{C4437CB5-65F4-40B9-A0A7-7D6032F64D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4437CB5-65F4-40B9-A0A7-7D6032F64D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4437CB5-65F4-40B9-A0A7-7D6032F64D95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2EECC4B-9945-417E-BC36-DFCE62ED932F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2EECC4B-9945-417E-BC36-DFCE62ED932F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2EECC4B-9945-417E-BC36-DFCE62ED932F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2EECC4B-9945-417E-BC36-DFCE62ED932F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69EE73D0-BC42-4F4E-98BA-97FC5B1AAD55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69EE73D0-BC42-4F4E-98BA-97FC5B1AAD55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69EE73D0-BC42-4F4E-98BA-97FC5B1AAD55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69EE73D0-BC42-4F4E-98BA-97FC5B1AAD55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

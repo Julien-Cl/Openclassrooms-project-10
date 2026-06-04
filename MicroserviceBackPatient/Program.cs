@@ -2,13 +2,8 @@ using System.Text;
 using MicroserviceBackPatient.Data;
 using MicroserviceBackPatient.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
-
-
-
 
 namespace MicroserviceBackPatient
 {
@@ -22,10 +17,6 @@ namespace MicroserviceBackPatient
 
       builder.Services.AddDbContext<PatientDbContext>(options =>
           options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-      builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-          .AddEntityFrameworkStores<PatientDbContext>()
-          .AddDefaultTokenProviders();
 
       var jwtKey = builder.Configuration["Jwt:Key"];
       var jwtIssuer = builder.Configuration["Jwt:Issuer"];
@@ -53,12 +44,10 @@ namespace MicroserviceBackPatient
         };
       });
 
+      builder.Services.AddAuthorization();
+
       builder.Services.AddEndpointsApiExplorer();
-
       builder.Services.AddSwaggerGen();
-
-
-
 
       var app = builder.Build();
 
@@ -74,34 +63,6 @@ namespace MicroserviceBackPatient
       {
         var context = scope.ServiceProvider.GetRequiredService<PatientDbContext>();
         context.Database.Migrate();
-
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-        var adminEmail = app.Configuration["AdminUser:Email"];
-        var adminPassword = app.Configuration["AdminUser:Password"];
-
-        if (!string.IsNullOrWhiteSpace(adminEmail) && !string.IsNullOrWhiteSpace(adminPassword))
-        {
-          var existingAdmin = userManager.FindByEmailAsync(adminEmail).GetAwaiter().GetResult();
-
-          if (existingAdmin == null)
-          {
-            var adminUser = new IdentityUser
-            {
-              UserName = adminEmail,
-              Email = adminEmail
-            };
-
-            var result = userManager.CreateAsync(adminUser, adminPassword).GetAwaiter().GetResult();
-
-            if (!result.Succeeded)
-            {
-              var errors = string.Join("; ", result.Errors.Select(e => e.Description));
-              throw new InvalidOperationException($"Admin user seed failed: {errors}");
-            }
-          }
-        }
-
 
         if (!context.Patients.Any(p => p.FirstName == "TestNone"))
         {

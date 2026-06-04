@@ -3,12 +3,25 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: patient-db
     environment:
-      ACCEPT_EULA: "Y" # On accepte la licence SQL Server
-      MSSQL_SA_PASSWORD: "PatientDb!2026" # Mot de passe admin de SQL Server
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "PatientDb!2026"
     ports:
-      - "1433:1433" # Port standard SQL Server
+      - "1433:1433"
     volumes:
       - patient-db-data:/var/opt/mssql
+    networks:
+      - medicalapp-network
+
+  auth-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: auth-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "AuthDb!2026"
+    ports:
+      - "1434:1433"
+    volumes:
+      - auth-db-data:/var/opt/mssql
     networks:
       - medicalapp-network
 
@@ -37,9 +50,29 @@ services:
       Jwt__Audience: "MedicalAppUsers"
       AdminUser__Email: "admin@medicalapp.local"
       AdminUser__Password: "Test123!"
-
     ports:
       - "7000:8080"
+    restart: on-failure
+    networks:
+      - medicalapp-network
+
+  auth-backend:
+    build:
+      context: ./MicroserviceBackAuth
+      dockerfile: Dockerfile
+    image: auth-api
+    container_name: auth-backend
+    depends_on:
+      - auth-db
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=auth-db,1433;Database=AuthDb;User Id=sa;Password=AuthDb!2026;TrustServerCertificate=True;Encrypt=False"
+      Jwt__Key: "MedicalApp_Sprint_Project_Secret_Key_Change_In_Production_2026"
+      Jwt__Issuer: "MedicalApp"
+      Jwt__Audience: "MedicalAppUsers"
+      AdminUser__Email: "admin@medicalapp.local"
+      AdminUser__Password: "Test123!"
+    ports:
+      - "7004:8080"
     restart: on-failure
     networks:
       - medicalapp-network
@@ -71,6 +104,7 @@ services:
     container_name: patient-router
     depends_on:
       - patient-backend
+      - auth-backend
       - note-backend
     ports:
       - "7001:8080"
@@ -92,6 +126,7 @@ services:
 
 volumes:
   patient-db-data:
+  auth-db-data:
   note-db-data:
 
 networks:
