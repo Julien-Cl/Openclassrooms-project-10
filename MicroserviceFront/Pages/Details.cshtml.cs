@@ -11,6 +11,9 @@ public class DetailsModel : PageModel
   public Patient Patient { get; set; } = new();
 
   public List<Note> Notes { get; set; } = new();
+  public Assessment? Assessment { get; set; }
+
+
 
   [BindProperty]
   public string NewNoteContent { get; set; } = string.Empty;
@@ -54,6 +57,7 @@ public class DetailsModel : PageModel
 
     if (patient == null)
       return NotFound();
+
 
     var note = new Note
     {
@@ -101,6 +105,8 @@ public class DetailsModel : PageModel
     Patient = patient;
 
     Notes = await _http.GetFromJsonAsync<List<Note>>($"http://patient-router:8080/notes/patient/{id}") ?? new();
+
+    Assessment = await _http.GetFromJsonAsync<Assessment>($"http://patient-router:8080/assessments/patient/{id}");
 
     return true;
   }

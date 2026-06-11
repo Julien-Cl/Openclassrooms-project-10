@@ -71,7 +71,21 @@
             ],
             "UpstreamPathTemplate": "/notes/patient/{patientId}",
             "UpstreamHttpMethod": [ "Get" ]
+        },
+        {
+            "DownstreamPathTemplate": "/assessments/patient/{patientId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "assessment-backend",
+                    "Port": 8080
+                }
+            ],
+            "UpstreamPathTemplate": "/assessments/patient/{patientId}",
+            "UpstreamHttpMethod": [ "Get" ]
         }
+
+
     ],
     "GlobalConfiguration": {
         "BaseUrl": "http://localhost:7001"

@@ -36,6 +36,26 @@
     </div>
 </div>
 
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5 mb-3">Évaluation du risque de diabète</h2>
+
+        @if (Model.Assessment == null)
+        {
+            <p class="text-muted mb-0">Évaluation indisponible.</p>
+        }
+        else
+        {
+            <p class="mb-0">
+                Niveau de risque :
+                <strong>@Model.Assessment.AssessmentResult</strong>
+            </p>
+        }
+    </div>
+</div>
+
+
 <div class="card mb-4">
     <div class="card-body">
         <h2 class="h5 mb-3">Ajouter une note</h2>

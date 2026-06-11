@@ -96,6 +96,36 @@ services:
     networks:
       - medicalapp-network
 
+
+
+
+  assessment-backend:
+    build:
+      context: ./MicroserviceBackAssessment
+      dockerfile: Dockerfile
+    image: assessment-api
+    container_name: assessment-backend
+    depends_on:
+      - patient-backend
+      - note-backend
+    environment:
+      Jwt__Key: "MedicalApp_Sprint_Project_Secret_Key_Change_In_Production_2026"
+      Jwt__Issuer: "MedicalApp"
+      Jwt__Audience: "MedicalAppUsers"
+      Services__PatientApi: "http://patient-backend:8080/"
+      Services__NoteApi: "http://note-backend:8080/"
+    ports:
+      - "7005:8080"
+    restart: on-failure
+    networks:
+      - medicalapp-network
+
+
+
+
+
+
+
   patient-router:
     build:
       context: ./MicroserviceRouter
@@ -106,6 +136,7 @@ services:
       - patient-backend
       - auth-backend
       - note-backend
+      - assessment-backend
     ports:
       - "7001:8080"
     networks:
