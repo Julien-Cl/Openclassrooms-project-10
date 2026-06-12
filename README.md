@@ -1,6 +1,6 @@
 # MedicalApp
 
-Application de dépistage du diabète de type 2 réalisée en utilisant des microservices. 
+Application d'évaluation du risque de diabète de type 2 réalisée en utilisant des microservices, dans le cadre d'un projet Openclassrooms. 
 
 
 ## Comment lancer le projet
