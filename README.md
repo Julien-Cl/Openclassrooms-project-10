@@ -1,1 +1,24 @@
 # MedicalApp
+
+Application de dépistage du diabète de type 2 réalisée en utilisant des microservices. 
+
+
+## Comment lancer le projet
+
+Lancement du projet depuis le dossier MedicalApp: docker compose up --build -d
+
+Adresse de l'interface web: http://localhost:7002
+
+Identifiants du compte de test: 
+admin@medicalapp.local
+Test123!
+
+
+## Mesures de green code à mettre en place
+
+- ajout d’un index MongoDB sur PatientId dans la base de données de notes
+
+- utilisation de DTO afin de réduire le volume de données à faire transiter, notamment entre microservices. 
+Ex: MicroserviceBackAssessment récupère un patient via GET /patients/{id}, or il n’a besoin que de DateOfBirth et Gender.  
+
+- configurer Ocelot pour mettre en place un rate limiting
