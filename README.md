@@ -9,7 +9,8 @@ Lancement du projet depuis le dossier MedicalApp: docker compose up --build -d
 
 Adresse de l'interface web: http://localhost:7002
 
-Identifiant du compte de test:admin@medicalapp.local
+Identifiant du compte de test: admin@medicalapp.local
+
 Mot de passe du compte de test: Test123!
 
 
